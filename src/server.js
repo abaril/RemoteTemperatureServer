@@ -9,7 +9,7 @@ function start(settings, route, handle) {
 	}
 	
 	http.createServer(onRequest).listen(settings.http_listen_port);
-	console.log("Server has started.");
+	console.log("Server has started on port: " + settings.http_listen_port);
 }
 
 exports.start = start;
