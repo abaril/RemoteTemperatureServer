@@ -9,6 +9,7 @@ function start(settings, store) {
 	});
 
 	server.bind(settings.udp_listen_port);
+	console.log("udp server listening on: " + settings.udp_listen_port);
 }
 
 exports.start = start;
