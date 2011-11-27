@@ -11,16 +11,16 @@ body {
 	list-style-type: none;
 }
 .value_list li {
-	margin-left: 30px;
-	margin-top: 5px;
+	margin: auto;
+	margin-bottom: 5px;
 	background-color: #e6edef;
 	border-radius: 5px;
-	width: 100%;
+	width: 95%;
 	height: 37pt;
 }
 .value_title {
 	display: inline;
-	font-size: 24pt;
+	font-size: 18pt;
 	padding-top: 10px;
 	padding-left: 10px;
 	line-height: 37pt;
@@ -32,6 +32,7 @@ body {
 	padding-left: 10px;
 	text-align: left;
 	background-color: #cce2e9;
-	font-size: 30pt;
+	font-size: 24pt;
 	border-radius: 5px;
+	line-height: 37pt;	
 }
