@@ -56,11 +56,14 @@ function store(value) {
 }
 
 function getData(count, start) {
+	if (data.length <= 0) {
+		return data;
+	}
+
 	if (start > 0) {
-		if (data[0].id > start) {
+		if ((data[0].id >= start) && (start > data[data.length - 1].id)) {
 			start = data[0].id - start;
-		}
-		if (start >= data[data.length - 1].id) {
+		} else {
 			// out of bounds
 			start = 0;
 			count = 0;
@@ -70,7 +73,7 @@ function getData(count, start) {
 	}
 	console.log("Returning " + start + " num " + count);
 
-	return data.slice(start, count);
+	return data.slice(start, start+count);
 }
 
 function init(value) {
