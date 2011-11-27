@@ -49,8 +49,8 @@ function store(value) {
 	}
 }
 
-function get() {
-	return data;
+function getData(count) {
+	return data.slice(0, count);
 }
 
 function init(value) {
@@ -59,4 +59,4 @@ function init(value) {
 
 exports.init = init;
 exports.store = store;
-exports.get = get;
+exports.getData = getData;

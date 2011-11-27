@@ -1,6 +1,7 @@
 
 var temperatures = require("./temperatures");
 var fs = require("fs");
+var url = require("url");
 
 var indexHTML;
 var jquery;
@@ -36,8 +37,20 @@ function css(response, request) {
 }
 
 function get_data(response, request) {
+	var params = url.parse(request.url, true).query;
+	var count = 20;
+	if ((typeof params["count"]) === "string") {
+		count = parseInt(params["count"]);
+		if (count > 40) {
+			count = 40;
+		}
+	}
+
+	console.log("get_data " + count + " items.");
+
+
 	response.writeHead(200, {"Content-Type": "text/javascript"});
-	response.write(JSON.stringify(temperatures.get()));
+	response.write(JSON.stringify(temperatures.getData(count)));
 	response.end();
 }
 
