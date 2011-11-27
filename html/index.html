@@ -15,7 +15,7 @@
 				document.getElementById("floor6_light").innerHTML=data[0].wall_router0.light.value;	
 			});
 		}
-		var timer = setTimeout(update(), 30000);
+		var timer = setInterval("update()", 30000);
 		</script>
 	</head>
 	<body onload="update()">
