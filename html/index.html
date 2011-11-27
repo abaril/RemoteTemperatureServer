@@ -7,7 +7,7 @@
 		<script type="text/javascript" src="/jquery-1.7.1.js"></script>
 		<script type="text/javascript">
 		function update() {
-			$.getJSON("/get_data", function(data) {
+			$.getJSON("/get_data?count=1", function(data) {
 				console.log(data);
 				document.getElementById("floor5_temperature").innerHTML=data[0].sensor0.temperature.value;
 				document.getElementById("floor5_light").innerHTML=data[0].sensor0.light.value;

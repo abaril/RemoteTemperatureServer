@@ -39,14 +39,18 @@ function css(response, request) {
 function get_data(response, request) {
 	var params = url.parse(request.url, true).query;
 	var count = 20;
+	var start = 0;
 	if ((typeof params["count"]) === "string") {
 		count = parseInt(params["count"]);
 		if (count > 40) {
 			count = 40;
 		}
 	}
+	if ((typeof params["start"]) === "string") {
+		start = parseInt(params["start"]);
+	}
 
-	console.log("get_data " + count + " items.");
+	console.log("get_data " + count + " items, starting at " + start);
 
 
 	response.writeHead(200, {"Content-Type": "text/javascript"});
