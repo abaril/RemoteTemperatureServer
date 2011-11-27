@@ -1,5 +1,8 @@
 <html>
 	<head>
+		<title>Xtreme Temperature Monitor</title>
+		<link rel="stylesheet" href="index.css">
+	
 		<script type="text/javascript" src="/jquery-1.7.1.js"></script>
 		<script type="text/javascript">
 		function update() {
@@ -10,16 +13,21 @@
 		});
 		}
 		</script>
-		<title>Xtreme Temperature Monitor</title>
 	</head>
 	<body onload="update()">
 		<div>
-			<span>The current temperature on floor 5 is: </span>
-			<span id="floor5_temperature">N/A</span>
+			<div class="block_title">Floor 5: </div>
+			<ul class="value_list">
+			<li><div class="value_title">Temperature: </div><div id="floor5_temperature" class="value">N/A</div></li>
+			<li><span class="value_title">Lighting: </span><div id="floor5_light" class="value">N/A</div></li>
+			</ul>
 		</div>
 		<div>
-			<span>The current temperature on floor 6 is: </span>
-			<span id="floor6_temperature">N/A</span>
+			<div class="block_title">Floor 6: </div>
+			<ul class="value_list">
+			<li><span class="value_title">Temperature: </span><div id="floor6_temperature" class="value">N/A</div></li>
+			<li><span class="value_title">Lighting: </span><div id="floor6_light" class="value">N/A</div></li>
+			</ul>
 		</div>
 	</body>
 </html>
