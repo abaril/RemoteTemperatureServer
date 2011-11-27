@@ -4,12 +4,16 @@ var fs = require("fs");
 
 var indexHTML;
 var jquery;
+var css;
 
 fs.readFile("../html/index.html", function(error, content) {
 	indexHTML = content;
 });
 fs.readFile("../html/jquery-1.7.1.js", function(error, content) {
 	jquery = content;
+});
+fs.readFile("../html/index.css", function(error, content) {
+	css = content;
 });
 
 // TODO: find a better way to serve static content ...
@@ -25,6 +29,12 @@ function jquery(response, request) {
 	response.end();
 }
 
+function css(response, request) {
+	response.writeHead(200, {"Content-Type": "text/css"});
+	response.write(css);
+	response.end();
+}
+
 function get_data(response, request) {
 	response.writeHead(200, {"Content-Type": "text/javascript"});
 	response.write(JSON.stringify(temperatures.get()));
@@ -33,4 +43,5 @@ function get_data(response, request) {
 
 exports.index = index;
 exports.jquery = jquery;
+exports.css = css;
 exports.get_data = get_data;

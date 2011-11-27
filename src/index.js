@@ -17,6 +17,7 @@ udpserver.start(settings, temperatures.store);
 var handle = {}
 handle["/"] = requestHandlers.index;
 handle["/jquery-1.7.1.js"] = requestHandlers.jquery;
+handle["/index.css"] = requestHandlers.css;
 handle["/get_data"] = requestHandlers.get_data;
 
 server.start(settings, router.route, handle);
