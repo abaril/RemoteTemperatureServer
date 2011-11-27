@@ -61,7 +61,7 @@ function getData(count, start) {
 	}
 
 	if (start > 0) {
-		if ((data[0].id >= start) && (start > data[data.length - 1].id)) {
+		if ((data[0].id >= start) && (start >= data[data.length - 1].id)) {
 			start = data[0].id - start;
 		} else {
 			// out of bounds
