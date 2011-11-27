@@ -54,7 +54,7 @@ function get_data(response, request) {
 
 
 	response.writeHead(200, {"Content-Type": "text/javascript"});
-	response.write(JSON.stringify(temperatures.getData(count)));
+	response.write(JSON.stringify(temperatures.getData(count, start)));
 	response.end();
 }
 
