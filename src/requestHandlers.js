@@ -1,17 +1,36 @@
 
 var temperatures = require("./temperatures");
+var fs = require("fs");
 
-function start(response, request) {
-	response.writeHead(200, {"Content-Type": "text/plain"});
-	response.write("Values:\n");
-	var values = temperatures.get();
-	for (x in values) {
-		var value = values[x];
-		var receiptDate = new Date(value.receiptDate);
-		response.write(receiptDate +  " - Sensor 0=" + value.sensor0.temperature.value + "C \n");
-		response.write(receiptDate +  " - Sensor 1=" + value.wall_router0.temperature.value + "C \n");		
-	}
+var indexHTML;
+var jquery;
+
+fs.readFile("../html/index.html", function(error, content) {
+	indexHTML = content;
+});
+fs.readFile("../html/jquery-1.7.1.js", function(error, content) {
+	jquery = content;
+});
+
+// TODO: find a better way to serve static content ...
+function index(response, request) {
+	response.writeHead(200, {"Content-Type": "text/html"});
+	response.write(indexHTML);
 	response.end();
 }
 
-exports.start = start;
+function jquery(response, request) {
+	response.writeHead(200, {"Content-Type": "text/javascript"});
+	response.write(jquery);
+	response.end();
+}
+
+function get_data(response, request) {
+	response.writeHead(200, {"Content-Type": "text/javascript"});
+	response.write(JSON.stringify(temperatures.get()));
+	response.end();
+}
+
+exports.index = index;
+exports.jquery = jquery;
+exports.get_data = get_data;

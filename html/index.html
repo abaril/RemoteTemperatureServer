@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<script type="text/javascript" src="/jquery-1.7.1.js"></script>
+		<script type="text/javascript">
+		function update() {
+		$.getJSON("/get_data", function(data) {
+			console.log(data);
+			document.getElementById("floor5_temperature").innerHTML=data[0].sensor0.temperature.value;
+			document.getElementById("floor6_temperature").innerHTML=data[0].wall_router0.temperature.value;			
+		});
+		}
+		</script>
+		<title>Xtreme Temperature Monitor</title>
+	</head>
+	<body onload="update()">
+		<div>
+			<span>The current temperature on floor 5 is: </span>
+			<span id="floor5_temperature">N/A</span>
+		</div>
+		<div>
+			<span>The current temperature on floor 6 is: </span>
+			<span id="floor6_temperature">N/A</span>
+		</div>
+	</body>
+</html>
