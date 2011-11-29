@@ -7,15 +7,17 @@ var indexHTML;
 var jquery;
 var css;
 
-fs.readFile("../html/index.html", function(error, content) {
-	indexHTML = content;
-});
-fs.readFile("../html/jquery-1.7.1.js", function(error, content) {
-	jquery = content;
-});
-fs.readFile("../html/index.css", function(error, content) {
-	css = content;
-});
+function init(settings) {
+	fs.readFile(settings.html_directory + "index.html", function(error, content) {
+		indexHTML = content;
+	});
+	fs.readFile(settings.html_directory + "jquery-1.7.1.js", function(error, content) {
+		jquery = content;
+	});
+	fs.readFile(settings.html_directory + "index.css", function(error, content) {
+		css = content;
+	});
+}
 
 // TODO: find a better way to serve static content ...
 function index(response, request) {
@@ -57,6 +59,7 @@ function get_data(response, request) {
 	response.end();
 }
 
+exports.init = init;
 exports.index = index;
 exports.jquery = jquery;
 exports.css = css;

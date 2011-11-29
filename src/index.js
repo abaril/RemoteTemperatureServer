@@ -8,7 +8,8 @@ var requestHandlers = require("./requestHandlers");
 var settings = {
 	"udp_listen_port": process.env.PORT||8889, 
 	"max_samples": 100, 
-	"http_listen_port": process.env.PORT||80
+	"http_listen_port": process.env.PORT||80,
+	"html_directory": "html/"
 };
 
 winston.add(winston.transports.File, {
@@ -22,6 +23,7 @@ temperatures.init(settings);
 
 udpserver.start(settings, temperatures.store);
 
+requestHandlers.init(settings);
 var handle = {}
 handle["/"] = requestHandlers.index;
 handle["/jquery-1.7.1.js"] = requestHandlers.jquery;
