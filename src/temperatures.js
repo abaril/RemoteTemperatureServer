@@ -1,4 +1,4 @@
-
+var winston = require("winston");
 var data = [];
 var settings = {};
 var nextId = 1;
@@ -50,7 +50,6 @@ function store(value) {
 
 	var length = data.unshift(parsed);
 	if (length > settings.max_samples) {
-		console.log("Cleaning house");
 		data.pop();
 	}
 }
@@ -71,12 +70,13 @@ function getData(count, start) {
 	} else {
 		start = 0;
 	}
-	console.log("Returning " + start + " num " + count);
+	winston.debug("Returning " + start + " num " + count);
 
 	return data.slice(start, start+count);
 }
 
 function init(value) {
+	winston.info("Initializing temperatures ...");
 	settings = value;
 }
 

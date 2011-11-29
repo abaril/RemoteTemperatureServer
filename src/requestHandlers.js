@@ -1,4 +1,4 @@
-
+var winston = require("winston");
 var temperatures = require("./temperatures");
 var fs = require("fs");
 var url = require("url");
@@ -50,8 +50,7 @@ function get_data(response, request) {
 		start = parseInt(params["start"]);
 	}
 
-	console.log("get_data " + count + " items, starting at " + start);
-
+	winston.debug("get_data " + count + " items, starting at " + start);
 
 	response.writeHead(200, {"Content-Type": "text/javascript"});
 	response.write(JSON.stringify(temperatures.getData(count, start)));
