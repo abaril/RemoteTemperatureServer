@@ -12,6 +12,7 @@ var settings = {
 	"html_directory": "html/"
 };
 
+winston.setLevels(winston.config.syslog.levels);
 winston.add(winston.transports.File, {
 	"filename": "log/server.log",
 	"handleExceptions": true,
