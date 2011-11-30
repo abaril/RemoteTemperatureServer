@@ -7,7 +7,7 @@ var requestHandlers = require("./requestHandlers");
 
 var settings = {
 	"udp_listen_port": process.env.PORT||8889, 
-	"max_samples": 100, 
+	"max_samples": 3000, 
 	"http_listen_port": process.env.PORT||80,
 	"html_directory": "html/"
 };
@@ -16,6 +16,11 @@ winston.add(winston.transports.File, {
 	"filename": "log/server.log",
 	"handleExceptions": true,
 	"level": "info"
+});
+winston.add(winston.transports.Loggly, {
+	"level": "info",
+	"subdomain": "xtremelabs",
+	"inputToken": "5ad40ba6-e3b6-4ab6-8682-77d7d771e623"
 });
 winston.info("Settings = " + JSON.stringify(settings));
 
