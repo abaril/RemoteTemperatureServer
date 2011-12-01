@@ -16,7 +16,7 @@ function init(settings) {
 		jquery = content;
 	});
 	fs.readFile(settings.html_directory + "chart.js", function(error, content) {
-		jquery = content;
+		chart = content;
 	});
 	fs.readFile(settings.html_directory + "index.css", function(error, content) {
 		css = content;
