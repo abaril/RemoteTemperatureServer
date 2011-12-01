@@ -54,7 +54,7 @@ function store(value) {
 	}
 }
 
-function getData(count, start) {
+function getData(count, start, interval) {
 	if (data.length <= 0) {
 		return data;
 	}
@@ -72,7 +72,22 @@ function getData(count, start) {
 	}
 	winston.debug("Returning " + start + " num " + count);
 
-	return data.slice(start, start+count);
+	if (interval === 0) {
+		return data.slice(start, start+count);
+	} else {
+		var startTime = data[start].receiptDate;
+		var result = [];
+		var i = start + 1;
+		
+		result.push(data[start]);
+		while ((result.length < count) && (i < data.length)) {
+			if ((startTime - data[i].receiptDate) >= (interval * 60 * 1000)) {
+				result.push(data[i]);
+			}
+			i += 1;
+		}
+		return result;
+	}
 }
 
 function init(value) {
