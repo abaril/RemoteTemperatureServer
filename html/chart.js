@@ -41,7 +41,6 @@ var chart =
 		
 		var i = 0;
 		var xPosition = width - 3;
-		for (i = data.length - 2; (i > 0) && (xPosition > 0); i--) {
 		for (i = 1; (i < data.length) && (xPosition > 0); ++i) {
 			if (sensor) {			
 				value = data[i].sensor0.temperature.value;
