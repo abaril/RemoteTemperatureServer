@@ -5,6 +5,7 @@ var url = require("url");
 
 var indexHTML;
 var jquery;
+var chart;
 var css;
 
 function init(settings) {
@@ -12,6 +13,9 @@ function init(settings) {
 		indexHTML = content;
 	});
 	fs.readFile(settings.html_directory + "jquery-1.7.1.js", function(error, content) {
+		jquery = content;
+	});
+	fs.readFile(settings.html_directory + "chart.js", function(error, content) {
 		jquery = content;
 	});
 	fs.readFile(settings.html_directory + "index.css", function(error, content) {
@@ -29,6 +33,12 @@ function index(response, request) {
 function jquery(response, request) {
 	response.writeHead(200, {"Content-Type": "text/javascript"});
 	response.write(jquery);
+	response.end();
+}
+
+function chart(response, request) {
+	response.writeHead(200, {"Content-Type": "text/javascript"});
+	response.write(chart);
 	response.end();
 }
 
@@ -66,5 +76,6 @@ function get_data(response, request) {
 exports.init = init;
 exports.index = index;
 exports.jquery = jquery;
+exports.chart = chart;
 exports.css = css;
 exports.get_data = get_data;
