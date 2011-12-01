@@ -75,13 +75,14 @@ function getData(count, start, interval) {
 	if (interval === 0) {
 		return data.slice(start, start+count);
 	} else {
-		var startTime = data[start].receiptDate;
+		var lastTime = data[start].receiptDate;
 		var result = [];
 		var i = start + 1;
 		
 		result.push(data[start]);
 		while ((result.length < count) && (i < data.length)) {
-			if ((startTime - data[i].receiptDate) >= (interval * 60 * 1000)) {
+			if ((lastTime - data[i].receiptDate) >= (interval * 60 * 1000)) {
+				lastTime = data[i].receiptDate;
 				result.push(data[i]);
 			}
 			i += 1;
