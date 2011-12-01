@@ -4,7 +4,8 @@
 		<title>Xtreme Temperature Monitor</title>
 		<link rel="stylesheet" href="index.css">
 	
-		<script type="text/javascript" src="/jquery-1.7.1.js"></script>
+		<script type="text/javascript" src="jquery-1.7.1.js"></script>
+		<script type="text/javascript" src="chart.js"></script>		
 		<script type="text/javascript">
 		function update() {
 			$.getJSON("/get_data?count=1", function(data) {
@@ -16,22 +17,44 @@
 			});
 		}
 		var timer = setInterval("update()", 30000);
+		
+		window.addEventListener('load', eventWindowLoaded, false); 
+		function eventWindowLoaded() {
+			canvasApp();
+		}
+	
+		function canvasApp()
+		{
+			var theCanvas = document.getElementById("canvas");
+			var context = theCanvas.getContext("2d");
+		
+			$.getJSON("/get_data?count=100&interval=15", function(data) {
+				chart.draw(data, context);
+			});
+
+	    }
 		</script>
 	</head>
 	<body onload="update()">
-		<div>
+		<div class="first">
+			<div class="block_title">Floor 6: </div>
+			<ul class="value_list">
+			<li><span class="value_title">Temperature: </span><div id="floor6_temperature" class="value">N/A</div></li>
+			<li><span class="value_title">Lighting: </span><div id="floor6_light" class="value">N/A</div></li>
+			</ul>
+		</div>
+		<div class="last">
 			<div class="block_title">Floor 5: </div>
 			<ul class="value_list">
 			<li><div class="value_title">Temperature: </div><div id="floor5_temperature" class="value">N/A</div></li>
 			<li><span class="value_title">Lighting: </span><div id="floor5_light" class="value">N/A</div></li>
 			</ul>
 		</div>
+		
 		<div>
-			<div class="block_title">Floor 6: </div>
-			<ul class="value_list">
-			<li><span class="value_title">Temperature: </span><div id="floor6_temperature" class="value">N/A</div></li>
-			<li><span class="value_title">Lighting: </span><div id="floor6_light" class="value">N/A</div></li>
-			</ul>
+			<canvas id="canvas" width="300" height="200">
+				Your browser does not support HTML5 Canvas.
+			</canvas>
 		</div>
 	</body>
 </html>

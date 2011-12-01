@@ -4,6 +4,14 @@ body {
 	margin: auto;
 }
 
+.first {
+	margin-top: 10px;	
+}
+
+.last {
+	margin-bottom: 10px;
+}
+
 .value_list {
 	margin: 0;
 	margin-bottom: 20px;
@@ -35,4 +43,8 @@ body {
 	font-size: 24pt;
 	border-radius: 5px;
 	line-height: 37pt;	
+}
+
+#canvas {
+	margin-left: 10px;
 }
