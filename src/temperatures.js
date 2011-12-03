@@ -12,45 +12,60 @@ function parseDateValue(tokens) {
 }
 
 function parse(value) {
-	// TODO: would probably make sense to make parsing more generic ... 
-	var currentTime = new Date();
-	var ret = {
-		"id": nextId++,
-		"receiptDate": currentTime.getTime(), 
-		"sensor0": {}, 
-		"wall_router0": {}
-	};
-	
-	var lines = value.toString().split("\n");
-	for (line in lines) {
-		var tokens = lines[line].split(",");
-		if (tokens[0] === "sensor0.temperature") {
-			ret.sensor0.temperature = parseDateValue(tokens);
+
+	var valid = false;
+	if (value)
+	{
+		var currentTime = new Date();
+		var ret = {
+			"id": nextId++,
+			"receiptDate": currentTime.getTime(), 
+			"sensor0": {}, 
+			"wall_router0": {}
+		};
+		
+		var lines = value.toString().split("\n");
+		for (line in lines) {
+			var tokens = lines[line].split(",");
+			if (tokens[0] === "sensor0.temperature") {
+				ret.sensor0.temperature = parseDateValue(tokens);
+				valid = true;				
+			}
+			else if (tokens[0] === "sensor0.low_battery") {
+				ret.sensor0.battery = parseDateValue(tokens);
+				valid = true;				
+			}
+			else if (tokens[0] === "sensor0.light") {
+				ret.sensor0.light = parseDateValue(tokens);
+				valid = true;				
+			}
+			else if (tokens[0] === "wall_router0.light") {
+				ret.wall_router0.light = parseDateValue(tokens);
+				valid = true;				
+			}
+			else if (tokens[0] === "wall_router0.temperature") {
+				ret.wall_router0.temperature = parseDateValue(tokens);
+				valid = true;
+			}
 		}
-		else if (tokens[0] === "sensor0.low_battery") {
-			ret.sensor0.battery = parseDateValue(tokens);
-		}
-		else if (tokens[0] === "sensor0.light") {
-			ret.sensor0.light = parseDateValue(tokens);
-		}
-		else if (tokens[0] === "wall_router0.light") {
-			ret.wall_router0.light = parseDateValue(tokens);
-		}
-		else if (tokens[0] === "wall_router0.temperature") {
-			ret.wall_router0.temperature = parseDateValue(tokens);
+		
+		if (valid) {
+			return ret;
 		}
 	}
-	
-	return ret;
 }
 
 function store(value) {
 	var parsed = parse(value);
-	console.log(JSON.stringify(parsed));
-
-	var length = data.unshift(parsed);
-	if (length > settings.max_samples) {
-		data.pop();
+	if (parsed) {
+		winston.debug(JSON.stringify(parsed));
+	
+		var length = data.unshift(parsed);
+		if (length > settings.max_samples) {
+			data.pop();
+		}
+	} else {
+		winston.warn("Received invalid data");	
 	}
 }
 

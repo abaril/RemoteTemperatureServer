@@ -5,8 +5,8 @@ var chart =
 	height: 180,
 	numYSeparators: 6,
 	numXSeparators: 4,
-	maxTemperature: 40,
-	minTemperature: 10,
+	maxTemperature: 30,
+	minTemperature: 18,
 	
 	calcYPosition: function(value) 
 	{
