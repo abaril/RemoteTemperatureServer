@@ -8,7 +8,7 @@ function getvalue(key, callback) {
 }
 
 function store(value) {
-	sdb.putItem(domain, value.receiptDate.toString(), value, function(error) {
+	sdb.putItem(domain, value.receiptDate.toString(), {"id": value.id, "receiptDate": value.receiptDate, "floor_5_temp": value.wall_router0.temperature.value, "floor_5_light": value.wall_router0.light.value, "floor_6_temp": value.sensor0.temperature.value, "floor_6_light": value.sensor0.light.value}, function(error) {
 		if (error) {
 			winston.error(JSON.stringify(error));
 		}
