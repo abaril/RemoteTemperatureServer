@@ -4,6 +4,7 @@ var temperatures = require("./temperatures");
 var server = require("./server");
 var router = require("./router");
 var requestHandlers = require("./requestHandlers");
+var awssdb = require("./awssdb");
 
 var settings = {
 	"udp_listen_port": process.env.PORT||8889, 
@@ -25,7 +26,8 @@ winston.add(winston.transports.Loggly, {
 });
 winston.info("Settings = " + JSON.stringify(settings));
 
-temperatures.init(settings);
+awssdb.init("awskey", "awssecret");
+temperatures.init(settings, awssdb.store);
 
 udpserver.start(settings, temperatures.store);
 
@@ -36,5 +38,6 @@ handle["/jquery-1.7.1.js"] = requestHandlers.jquery;
 handle["/chart.js"] = requestHandlers.chart;
 handle["/index.css"] = requestHandlers.css;
 handle["/get_data"] = requestHandlers.get_data;
+handle["/sdb_getvalue"] = requestHandlers.sdb_getvalue;
 
 server.start(settings, router.route, handle);

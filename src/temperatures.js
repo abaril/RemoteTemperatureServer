@@ -2,6 +2,7 @@ var winston = require("winston");
 var data = [];
 var settings = {};
 var nextId = 1;
+var dbfunc;
 
 function parseDateValue(tokens) {
 	var ret = {};
@@ -64,6 +65,10 @@ function store(value) {
 		if (length > settings.max_samples) {
 			data.pop();
 		}
+		
+		if (dbfunc) {
+			dbfunc(value);
+		}
 	} else {
 		winston.warn("Received invalid data");	
 	}
@@ -106,9 +111,10 @@ function getData(count, start, interval) {
 	}
 }
 
-function init(value) {
+function init(value, dbfuncIn) {
 	winston.info("Initializing temperatures ...");
 	settings = value;
+	dbfunc = dbfuncIn;
 }
 
 exports.init = init;
