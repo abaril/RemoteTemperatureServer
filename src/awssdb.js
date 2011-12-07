@@ -4,7 +4,7 @@ var domain = "com.allanbaril.tempmon";
 var sdb;
 
 function getvalue(key, callback) {
-	sdb.getItem(domain, key, callback(error, result));
+	sdb.getItem(domain, key, callback);
 }
 
 function store(value) {

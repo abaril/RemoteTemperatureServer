@@ -11,6 +11,8 @@ var settings = {
 	"max_samples": 3000, 
 	"http_listen_port": process.env.PORT||80,
 	"html_directory": "html/"
+	"aws_key": "aws_key"
+	"aws_secret": "aws_secret"
 };
 
 winston.setLevels(winston.config.syslog.levels);
@@ -26,7 +28,7 @@ winston.add(winston.transports.Loggly, {
 });
 winston.info("Settings = " + JSON.stringify(settings));
 
-awssdb.init("AKIAITSU3YOIRXDONZZQ", "VRLKJzVgatEqgZWrFnv7tRYSBobgAquPYcpxGTZj");
+awssdb.init(settings.aws_key, settings.aws_secret);
 temperatures.init(settings, awssdb.store);
 
 udpserver.start(settings, temperatures.store);
