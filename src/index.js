@@ -26,7 +26,7 @@ winston.add(winston.transports.Loggly, {
 });
 winston.info("Settings = " + JSON.stringify(settings));
 
-awssdb.init("awskey", "awssecret");
+awssdb.init("AKIAITSU3YOIRXDONZZQ", "VRLKJzVgatEqgZWrFnv7tRYSBobgAquPYcpxGTZj");
 temperatures.init(settings, awssdb.store);
 
 udpserver.start(settings, temperatures.store);

@@ -67,7 +67,7 @@ function store(value) {
 		}
 		
 		if (dbfunc) {
-			dbfunc(value);
+			dbfunc(parsed);
 		}
 	} else {
 		winston.warn("Received invalid data");	

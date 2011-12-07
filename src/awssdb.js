@@ -8,21 +8,21 @@ function getvalue(key, callback) {
 }
 
 function store(value) {
-	sdb.put(domain, value.receiptDate, value, function(error) {
+	sdb.putItem(domain, value.receiptDate.toString(), value, function(error) {
 		if (error) {
-			winston.error(error);
+			winston.error(JSON.stringify(error));
 		}
 	});
 }
 
 function init(awskeyid, awssecret) {
-	winston.info("Initializing simple ...");
+	winston.info("Initializing simpleDB ...");
 	sdb = new simpledb.SimpleDB({"keyid": awskeyid, "secret": awssecret});
 	sdb.createDomain(domain, function(error) {
 		if (!error) {
 			winston.info("Simple DB prep'd");
 		} else {
-			winston.error(error);
+			winston.error(JSON.stringify(error));
 		}
 	});
 }
