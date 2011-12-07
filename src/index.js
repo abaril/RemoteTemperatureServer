@@ -10,8 +10,8 @@ var settings = {
 	"udp_listen_port": process.env.PORT||8889, 
 	"max_samples": 3000, 
 	"http_listen_port": process.env.PORT||80,
-	"html_directory": "html/"
-	"aws_key": "aws_key"
+	"html_directory": "html/",
+	"aws_key": "aws_key",
 	"aws_secret": "aws_secret"
 };
 
