@@ -1,0 +1,5 @@
+RemoteTemperatureServer is a simple Node.js server which receives remote temperature sensor values,
+through UDP packets, collects and then provides a web API and HTML page for retrieving the 
+temperature values.
+
+This project was started to explore Node.js and is provided as open source through the MIT license.
