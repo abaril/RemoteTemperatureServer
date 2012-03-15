@@ -11,21 +11,21 @@ var settings = {
 	"max_samples": 3000, 
 	"http_listen_port": process.env.PORT||80,
 	"html_directory": "html/",
-	"aws_key": "aws_key",
-	"aws_secret": "aws_secret"
+	"aws_key": "AKIAIYX4T4KW2VEX5LVQ",
+	"aws_secret": "Ywy7g63JjCFlwXRegtAiFFqE04g9va6pVmFzS24z"
 };
 
 winston.setLevels(winston.config.syslog.levels);
 winston.add(winston.transports.File, {
 	"filename": "log/server.log",
 	"handleExceptions": true,
-	"level": "info"
+	"level": "debug"
 });
-winston.add(winston.transports.Loggly, {
-	"level": "info",
-	"subdomain": "xtremelabs",
-	"inputToken": "5ad40ba6-e3b6-4ab6-8682-77d7d771e623"
-});
+//winston.add(winston.transports.Loggly, {
+//	"level": "info",
+//		"subdomain": "xtremelabs",
+//	"inputToken": "5ad40ba6-e3b6-4ab6-8682-77d7d771e623"
+//});
 winston.info("Settings = " + JSON.stringify(settings));
 
 awssdb.init(settings.aws_key, settings.aws_secret);

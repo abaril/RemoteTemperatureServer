@@ -33,9 +33,9 @@ var chart =
 		this.context.beginPath(); 
 		var value;
 		if (sensor) {
-			value = data[0].sensor0.temperature.value;
+			value = data[0].floor_sensor5.temperature.value;
 		} else {
-			value = data[0].wall_router0.temperature.value;
+			value = data[0].floor_sensor6.temperature.value;
 		}
 		this.context.moveTo(width, this.calcYPosition(value)); 
 		
@@ -43,9 +43,9 @@ var chart =
 		var xPosition = width - 3;
 		for (i = 1; (i < data.length) && (xPosition > 0); ++i) {
 			if (sensor) {			
-				value = data[i].sensor0.temperature.value;
+				value = data[i].floor_sensor5.temperature.value;
 			} else {
-				value = data[i].wall_router0.temperature.value;
+				value = data[i].floor_sensor6.temperature.value;
 			}
 			this.context.lineTo(xPosition, this.calcYPosition(value));
 			xPosition -= 3;

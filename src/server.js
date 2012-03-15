@@ -12,7 +12,10 @@ function start(settings, route, handle) {
 		route(handle, pathname, response, request);
 	}
 
-	http.createServer(onRequest).listen(settings.http_listen_port);
+	var server = http.createServer(onRequest).listen(settings.http_listen_port);
+	server.on("error", function(err) {
+		winston.info("Socket error: " + err);
+	});
 	winston.info("Server has started on port: " + settings.http_listen_port);
 }
 

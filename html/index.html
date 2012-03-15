@@ -10,10 +10,10 @@
 		function update() {
 			$.getJSON("/get_data?count=1", function(data) {
 				console.log(data);
-				document.getElementById("floor5_temperature").innerHTML=data[0].sensor0.temperature.value;
-				document.getElementById("floor5_light").innerHTML=data[0].sensor0.light.value;
-				document.getElementById("floor6_temperature").innerHTML=data[0].wall_router0.temperature.value;	
-				document.getElementById("floor6_light").innerHTML=data[0].wall_router0.light.value;	
+				document.getElementById("floor5_temperature").innerHTML=data[0].floor_sensor5.temperature.value;
+				document.getElementById("floor5_light").innerHTML=data[0].floor_sensor5.light.value;
+				document.getElementById("floor6_temperature").innerHTML=data[0].floor_sensor6.temperature.value;	
+				document.getElementById("floor6_light").innerHTML=data[0].floor_sensor6.light.value;	
 			});
 		}
 		var timer = setInterval("update()", 30000);

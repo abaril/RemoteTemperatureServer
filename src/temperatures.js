@@ -22,7 +22,11 @@ function parse(value) {
 			"id": nextId++,
 			"receiptDate": currentTime.getTime(), 
 			"sensor0": {}, 
-			"wall_router0": {}
+			"wall_router0": {},
+			"floor_sensor4": {},
+			"floor_sensor5": {},
+			"floor_sensor6": {},
+			"floor_sensor9": {}
 		};
 		
 		var lines = value.toString().split("\n");
@@ -48,6 +52,54 @@ function parse(value) {
 				ret.wall_router0.temperature = parseDateValue(tokens);
 				valid = true;
 			}
+                        else if (tokens[0] === "floor_sensor4.temperature") {
+                                ret.floor_sensor4.temperature = parseDateValue(tokens);
+                                valid = true;
+                        }
+                        else if (tokens[0] === "floor_sensor4.low_battery") {
+                                ret.floor_sensor4.battery = parseDateValue(tokens);
+                                valid = true;
+                        }
+                        else if (tokens[0] === "floor_sensor4.light") {
+                                ret.floor_sensor4.light = parseDateValue(tokens);
+                                valid = true;
+                        }
+                        else if (tokens[0] === "floor_sensor5.temperature") {
+                                ret.floor_sensor5.temperature = parseDateValue(tokens);
+                                valid = true;
+                        }
+                        else if (tokens[0] === "floor_sensor5.low_battery") {
+                                ret.floor_sensor5.battery = parseDateValue(tokens);
+                                valid = true;
+                        }
+                        else if (tokens[0] === "floor_sensor5.light") {
+                                ret.floor_sensor5.light = parseDateValue(tokens);
+                                valid = true;
+                        }
+                        else if (tokens[0] === "floor_sensor6.temperature") {
+                                ret.floor_sensor6.temperature = parseDateValue(tokens);
+                                valid = true;
+                        }
+                        else if (tokens[0] === "floor_sensor6.low_battery") {
+                                ret.floor_sensor6.battery = parseDateValue(tokens);
+                                valid = true;
+                        }
+                        else if (tokens[0] === "floor_sensor6.light") {
+                                ret.floor_sensor6.light = parseDateValue(tokens);
+                                valid = true;
+                        }
+                        else if (tokens[0] === "floor_sensor9.temperature") {
+                                ret.floor_sensor9.temperature = parseDateValue(tokens);
+                                valid = true;
+                        }
+                        else if (tokens[0] === "floor_sensor9.low_battery") {
+                                ret.floor_sensor9.battery = parseDateValue(tokens);
+                                valid = true;
+                        }
+                        else if (tokens[0] === "floor_sensor9.light") {
+                                ret.floor_sensor9.light = parseDateValue(tokens);
+                                valid = true;
+                        }
 		}
 		
 		if (valid) {
