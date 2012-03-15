@@ -1,0 +1,62 @@
+RemoteTemperatureServer is a simple Node.js server which receives remote temperature sensor values,
+through UDP packets, collects and then provides a web API and HTML page for retrieving the 
+temperature values.
+
+The server is accessible at: http://temperature.xtremelabs.com.
+
+This project was started to explore Node.js and is provided as open source through the MIT license.
+The following blog provides some further description of the overall system.
+
+=====
+
+Keeping Cool with Node.js
+Xtreme Labs is headquartered in the Canadian Pacific Building, which when completed in 1913 was the
+tallest building in the British Empire. Along with that heritage, the building has an HVAC that may 
+be originally from that era as well resulting in the office temperature fluctuating during the day; 
+of course, it also doesn't help that we have probably 2 to 3 times the typical number of high-end 
+workstations in our offices. 
+
+I had a couple wireless, Zigbee temperature sensors sitting around and figured it would be perfect 
+to use them to create a mobile friendly, temperature monitoring site displaying the current 
+temperature in the office. Basically, the system, which can be accessed at http://temperature.xtremelabs.com 
+(and http://temperature.xtremelabs.com/get_data for the web service), comprises of several pieces. 
+The Zigbee temperature sensors periodically send a report packet to a Digi Zigbee to WiFi gateway. 
+The gateway, which runs some simple Python code, collects the reports from the sensors and then sends 
+the combined reports to a central server. The sensors and the Digi Zigbee to WiFi gateway provided 
+most of the necessary pieces for collecting the temperature reports but I was lacking the central 
+server to receive the reports, to store the data, and to provide the web site and API for pulling 
+the current (and past) temperature values. Having recently done some reading about Node.js, I was 
+curious to play with it, so this seemed like the perfect opportunity.
+
+One of the first things that struck me as interesting with Node.js is that it is built on Javascript. 
+Coming from a background of strongly typed languages, like C/C++, Java, C#, and Objective-C, this 
+seemed an odd choice to me. Javascript is typically used in browser/client development instead of 
+server-side development, but Javascript's asynchronous nature helps it shine for server development 
+as well. In languages like Java and C/C++ you'd typically fire up multiple threads to handle 
+simultaneous requests. This leads to you requiring a thread pool to balance these expensive resourses,
+messaging queues to communicate between, etc. You could write your code to handle the requests 
+asynchronously, requiring more complexity and state. With Node.js, you’re required to write you 
+handlers asynchronously from the start since there is a single thread. Javascript handles this 
+naturally though. Need to send a request and get a response from a server that would typically block 
+for a while? No problem, simply provide a handler function to be executed when the response is received 
+and Node.js will be able to handle other services in the meantime, calling the handler function when 
+the response is received. This asynchronous nature allows Node.js to be relatively light-weight and 
+highly scalable.
+
+One of the other aspects that I found refreshing with Node.js is how simple it was to get up and going. 
+Unlike some other server platforms, there is no need to learn different technologies, for example, 
+switching between developing JSPs and back to Java applets. If you need a simple web API, simply 
+implement the necessary handlers and routers in Javascript, and if your response is in JSON, obviously 
+this is trivial to prepare from Javascript. Node.js has a strong community behind it, so if you need 
+something a bit more complex, you'll likely find some modules that you leverage.
+
+Developing in Node.js was exciting as it was quick to see results, test and enhance. The platform 
+and community modules are elegant and simple. Node.js is a relatively young server platform and 
+definitely isn't a silver bullet to replace all existing server platforms. If you need a light weight, 
+efficient and scalable platform to provide services for your mobile app, Node.js will likely be a 
+great choice. Using technologies like Node.js, Xtreme Labs can help you get your mobile solution out 
+to testers and market more quickly, allowing you to garner feedback and further enhance your mobile 
+product.
+
+If you're curious, source code for my simple server, under MIT open source license, is available 
+at: https://github.com/abaril/RemoteTemperatureServer
