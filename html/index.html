@@ -5,16 +5,63 @@
 		<link rel="stylesheet" href="index.css">
 	
 		<script type="text/javascript" src="jquery-1.7.1.js"></script>
-		<script type="text/javascript" src="chart.js"></script>		
+		<script type="text/javascript" src="chart.js"></script>
+		<script type="text/javascript" src="underscore.js"></script>
+		<script type="text/javascript" src="backbone.js"></script>
 		<script type="text/javascript">
+		
+		var DatedValue = Backbone.Model.extend({
+		});
+		var Sensor = Backbone.Model.extend({
+			parse: function(response) {
+				this.temperature = new DatedValue(response.temperature);
+				this.battery = new DatedValue(response.battery);
+				this.light = new DatedValue(response.light);
+				delete response.temperature;
+				delete response.battery;
+				delete response.light;
+				return response;
+			}
+			
+		});
+		var Reading = Backbone.Model.extend({
+			parse: function(response) {
+				this.floor_sensor4 = new Sensor();
+				this.floor_sensor5 = new Sensor();
+				this.floor_sensor6 = new Sensor();			
+				this.floor_sensor4.parse(response.floor_sensor4);			
+				this.floor_sensor5.parse(response.floor_sensor5);
+				this.floor_sensor6.parse(response.floor_sensor6);				
+				delete response.floor_sensor4;
+				delete response.floor_sensor5;				
+				delete response.floor_sensor6;				
+				return response;
+			}
+		});
+		var Readings = Backbone.Collection.extend({
+			model: Reading,
+			url: 'http://temperature.xtremelabs.com/get_data'
+//			parse: function(response) {
+//				console.log(response);
+//				return response.results;
+//			}
+		});
+		
 		function update() {
-			$.getJSON("/get_data?count=1", function(data) {
-				console.log(data);
-				document.getElementById("floor5_temperature").innerHTML=data[0].floor_sensor5.temperature.value;
-				document.getElementById("floor5_light").innerHTML=data[0].floor_sensor5.light.value;
-				document.getElementById("floor6_temperature").innerHTML=data[0].floor_sensor6.temperature.value;	
-				document.getElementById("floor6_light").innerHTML=data[0].floor_sensor6.light.value;	
-			});
+			var currentReading = new Readings();
+			currentReading.fetch({success: function() {
+				console.log(currentReading.length);
+				var latest = currentReading.at(0);
+				$('#floor5_temperature').html(latest.floor_sensor5.temperature.get("value"));
+			}});
+		
+//			$.getJSON("http://temperature.xtremelabs.com/get_data?count=1", function(data) {				
+//				console.log(data);
+//				document.getElementById("floor5_temperature").innerHTML=data[0].floor_sensor5.temperature.value;
+//				document.getElementById("floor5_light").innerHTML=data[0].floor_sensor5.light.value;
+//				document.getElementById("floor6_temperature").innerHTML=data[0].floor_sensor6.temperature.value;	
+//				document.getElementById("floor6_light").innerHTML=data[0].floor_sensor6.light.value;	
+//			});
 		}
 		var timer = setInterval("update()", 30000);
 		

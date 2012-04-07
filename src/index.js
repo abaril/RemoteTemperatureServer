@@ -18,6 +18,7 @@
 var winston = require("winston");
 var udpserver = require("./udpserver");
 var temperatures = require("./temperatures");
+var temperatures2 = require("./temperatures2");
 var server = require("./server");
 var router = require("./router");
 var requestHandlers = require("./requestHandlers");
@@ -47,6 +48,7 @@ winston.info("Settings = " + JSON.stringify(settings));
 
 awssdb.init(settings.aws_key, settings.aws_secret);
 temperatures.init(settings, awssdb.store);
+temperatures2.init(settings, awssdb.store);
 
 udpserver.start(settings, temperatures.store);
 
@@ -58,5 +60,6 @@ handle["/chart.js"] = requestHandlers.chart;
 handle["/index.css"] = requestHandlers.css;
 handle["/get_data"] = requestHandlers.get_data;
 handle["/sdb_getvalue"] = requestHandlers.sdb_getvalue;
+handle["/get_data2"] = requestHandlers.get_data2;
 
 server.start(settings, router.route, handle);

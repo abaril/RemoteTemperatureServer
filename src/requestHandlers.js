@@ -17,6 +17,7 @@
 
 var winston = require("winston");
 var temperatures = require("./temperatures");
+var temperatures2 = require("./temperatures2");
 var fs = require("fs");
 var url = require("url");
 var awssdb = require("./awssdb");
@@ -91,6 +92,32 @@ function get_data(response, request) {
 	response.end();
 }
 
+function get_data2(response, request) {
+	var params = url.parse(request.url, true).query;
+	var count = 20;
+	var start = 0;
+	var interval = 0;
+	if ((typeof params["count"]) === "string") {
+		count = parseInt(params["count"]);
+		if (count > 100) {
+			count = 100;
+		}
+	}
+	if ((typeof params["start"]) === "string") {
+		start = parseInt(params["start"]);
+	}
+	if ((typeof params["interval"]) === "string") {
+		interval = parseFloat(params["interval"]);
+	}
+
+	winston.debug("get_data " + count + " items, starting at " + start + " with interval " + interval);
+
+	response.writeHead(200, {"Content-Type": "text/javascript"});
+	response.write(JSON.stringify(temperatures2.getData(count, start, interval)));
+	response.end();
+}
+
+
 function sdb_getvalue(response, request) {
 	var params = url.parse(request.url, true).query;
 	var timestamp = params["timestamp"];
@@ -108,4 +135,5 @@ exports.jquery = jquery;
 exports.chart = chart;
 exports.css = css;
 exports.get_data = get_data;
+exports.get_data2 = get_data2;
 exports.sdb_getvalue = sdb_getvalue;
