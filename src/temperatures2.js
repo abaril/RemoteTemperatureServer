@@ -21,6 +21,15 @@ var settings = {};
 var nextId = 1;
 var dbfunc;
 
+var sensorsOfInterest = [
+	"floor_sensor4",
+	"floor_sensor5",
+	"floor_sensor6",
+	"floor_sensor9",
+	"sensor0",
+	"wall_router0"
+];
+
 function parseDateValue(readingName, tokens) {
 	var ret = {};
 	
@@ -32,14 +41,27 @@ function parseDateValue(readingName, tokens) {
 }
 
 function findSensor(sensors, sensorName) {
-	for (sensor in sensors) {
+	var interested = false;
+	for (var i in sensorsOfInterest) {
+		if (sensorsOfInterest[i] === sensorName) {
+			interested = true;
+			break;
+		}
+	}
+
+	if (!interested) {
+		return;
+	}
+
+	for (var i in sensors) {
+		var sensor = sensors[i];
 		if (sensor.name === sensorName) {
 			return sensor;
 		}
 	}
 	
 	var newSensor = { "name": sensorName, "readings": [] };
-	ret.sensors.push(newSensor);
+	sensors.push(newSensor);
 	return newSensor;
 }
 
@@ -88,7 +110,7 @@ function store(value) {
 	}
 }
 
-function getData2(count, start, interval) {
+function getData(count, start, interval) {
 	if (data.length <= 0) {
 		return data;
 	}
