@@ -40,28 +40,23 @@
 		});
 		var Readings = Backbone.Collection.extend({
 			model: Reading,
-			url: 'http://temperature.xtremelabs.com/get_data'
-//			parse: function(response) {
-//				console.log(response);
-//				return response.results;
-//			}
+			url: 'http://temperature.xtremelabs.com/get_data?count=1'
 		});
 		
 		function update() {
 			var currentReading = new Readings();
 			currentReading.fetch({success: function() {
-				console.log(currentReading.length);
 				var latest = currentReading.at(0);
+				$('#floor4_temperature').html(latest.floor_sensor4.temperature.get("value"));
+				$('#floor4_brightness').html(latest.floor_sensor4.light.get("value"));
+				$('#floor4_battery').html(latest.floor_sensor4.battery.get("value"));
 				$('#floor5_temperature').html(latest.floor_sensor5.temperature.get("value"));
+				$('#floor5_brightness').html(latest.floor_sensor5.light.get("value"));
+				$('#floor5_battery').html(latest.floor_sensor5.battery.get("value"));				
+				$('#floor6_temperature').html(latest.floor_sensor6.temperature.get("value"));				
+				$('#floor6_brightness').html(latest.floor_sensor6.light.get("value"));				
+				$('#floor6_battery').html(latest.floor_sensor6.battery.get("value"));				
 			}});
-		
-//			$.getJSON("http://temperature.xtremelabs.com/get_data?count=1", function(data) {				
-//				console.log(data);
-//				document.getElementById("floor5_temperature").innerHTML=data[0].floor_sensor5.temperature.value;
-//				document.getElementById("floor5_light").innerHTML=data[0].floor_sensor5.light.value;
-//				document.getElementById("floor6_temperature").innerHTML=data[0].floor_sensor6.temperature.value;	
-//				document.getElementById("floor6_light").innerHTML=data[0].floor_sensor6.light.value;	
-//			});
 		}
 		var timer = setInterval("update()", 30000);
 		
@@ -87,20 +82,30 @@
 			<div class="block_title">Floor 6: </div>
 			<ul class="value_list">
 			<li><span class="value_title">Temperature: </span><div id="floor6_temperature" class="value">N/A</div></li>
-			<li><span class="value_title">Lighting: </span><div id="floor6_light" class="value">N/A</div></li>
+			<li><span class="value_title">Lighting: </span><div id="floor6_brightness" class="value">N/A</div></li>
+			<li><span class="value_title">Low Battery: </span><div id="floor6_battery" class="value">N/A</div></li>			
 			</ul>
 		</div>
-		<div class="last">
+		<div>
 			<div class="block_title">Floor 5: </div>
 			<ul class="value_list">
 			<li><div class="value_title">Temperature: </div><div id="floor5_temperature" class="value">N/A</div></li>
-			<li><span class="value_title">Lighting: </span><div id="floor5_light" class="value">N/A</div></li>
+			<li><span class="value_title">Lighting: </span><div id="floor5_brightness" class="value">N/A</div></li>
+			<li><span class="value_title">Low Battery: </span><div id="floor5_battery" class="value">N/A</div></li>						
+			</ul>
+		</div>
+		<div class="last">
+			<div class="block_title">Floor 4: </div>
+			<ul class="value_list">
+			<li><div class="value_title">Temperature: </div><div id="floor4_temperature" class="value">N/A</div></li>
+			<li><span class="value_title">Lighting: </span><div id="floor4_brightness" class="value">N/A</div></li>
+			<li><span class="value_title">Low Battery: </span><div id="floor4_battery" class="value">N/A</div></li>						
 			</ul>
 		</div>
 		
 		<div>
 			<canvas id="canvas" width="300" height="200">
-				Your browser does not support HTML5 Canvas.
+				Sorry, your browser does not support HTML5 Canvas.
 			</canvas>
 		</div>
 	</body>
