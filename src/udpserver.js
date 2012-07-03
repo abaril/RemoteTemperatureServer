@@ -18,12 +18,17 @@
 var winston = require("winston");
 var udp = require("dgram");
 
-function start(settings, store) {
+function start(settings, store, store2) {
 	var server = udp.createSocket("udp4");
 
 	server.on("message", function(msg) {
 		winston.info("server got: " + msg);
-		store(msg);		
+		if (store) {
+		   store(msg);
+		}		
+                if (store2) {
+                   store2(msg);
+                }
 	});
 
 	winston.info("UDP server listening on: " + settings.udp_listen_port);
