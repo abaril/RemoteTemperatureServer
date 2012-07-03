@@ -43,10 +43,10 @@ function init(settings) {
 		css = content;
 	});
 	fs.readFile(settings.html_directory + "backbone.js", function(error, content) {
-		css = content;
+		backbone = content;
 	});
 	fs.readFile(settings.html_directory + "underscore.js", function(error, content) {
-		css = content;
+		underscore = content;
 	});
 }
 
