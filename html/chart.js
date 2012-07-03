@@ -30,7 +30,7 @@ var chart =
 		var value;
 		if (sensor == 4) {			
 			value = data[0].floor_sensor4.temperature.value;
-		} else if (sensor == 5)
+		} else if (sensor == 5) {
 			value = data[0].floor_sensor5.temperature.value;
 		} else {
 			value = data[0].floor_sensor6.temperature.value;			
@@ -42,7 +42,7 @@ var chart =
 		for (i = 1; (i < data.length) && (xPosition > 0); ++i) {
 			if (sensor == 4) {			
 				value = data[i].floor_sensor4.temperature.value;
-			} else if (sensor == 5)
+			} else if (sensor == 5) {
 				value = data[i].floor_sensor5.temperature.value;
 			} else {
 				value = data[i].floor_sensor6.temperature.value;			
