@@ -26,6 +26,8 @@ var indexHTML;
 var jquery;
 var chart;
 var css;
+var backbone;
+var underscore;
 
 function init(settings) {
 	fs.readFile(settings.html_directory + "index.html", function(error, content) {
@@ -38,6 +40,12 @@ function init(settings) {
 		chart = content;
 	});
 	fs.readFile(settings.html_directory + "index.css", function(error, content) {
+		css = content;
+	});
+	fs.readFile(settings.html_directory + "backbone.js", function(error, content) {
+		css = content;
+	});
+	fs.readFile(settings.html_directory + "underscore.js", function(error, content) {
 		css = content;
 	});
 }
@@ -66,6 +74,19 @@ function css(response, request) {
 	response.write(css);
 	response.end();
 }
+
+function underscore(response, request) {
+	response.writeHead(200, {"Content-Type": "text/javascript"});
+	response.write(underscore);
+	response.end();
+}
+
+function backbone(response, request) {
+	response.writeHead(200, {"Content-Type": "text/javascript"});
+	response.write(backbone);
+	response.end();
+}
+
 
 function get_data(response, request) {
 	var params = url.parse(request.url, true).query;
@@ -134,6 +155,8 @@ exports.index = index;
 exports.jquery = jquery;
 exports.chart = chart;
 exports.css = css;
+exports.backbone = backbone;
+exports.underscore = underscore;
 exports.get_data = get_data;
 exports.get_data2 = get_data2;
 exports.sdb_getvalue = sdb_getvalue;
