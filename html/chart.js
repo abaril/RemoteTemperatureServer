@@ -20,32 +20,32 @@ var chart =
 		return ret;
 	},
 	
-	drawCurve: function(data, sensor, width, height)
+	drawCurve: function(data, color, sensor, width, height)
 	{
-		if (sensor) {
-			this.context.strokeStyle = "#69B3E7"; 
-		} else {
-			this.context.strokeStyle = "#074995";
-		}
+		this.context.strokeStyle = color; 
 		this.context.lineWidth = 2;
 		this.context.lineCap = 'round'; 
 		this.context.lineJoin = 'round';
 		this.context.beginPath(); 
 		var value;
-		if (sensor) {
+		if (sensor == 4) {			
+			value = data[0].floor_sensor4.temperature.value;
+		} else if (sensor == 5)
 			value = data[0].floor_sensor5.temperature.value;
 		} else {
-			value = data[0].floor_sensor6.temperature.value;
+			value = data[0].floor_sensor6.temperature.value;			
 		}
 		this.context.moveTo(width, this.calcYPosition(value)); 
 		
 		var i = 0;
 		var xPosition = width - 3;
 		for (i = 1; (i < data.length) && (xPosition > 0); ++i) {
-			if (sensor) {			
+			if (sensor == 4) {			
+				value = data[i].floor_sensor4.temperature.value;
+			} else if (sensor == 5)
 				value = data[i].floor_sensor5.temperature.value;
 			} else {
-				value = data[i].floor_sensor6.temperature.value;
+				value = data[i].floor_sensor6.temperature.value;			
 			}
 			this.context.lineTo(xPosition, this.calcYPosition(value));
 			xPosition -= 3;
@@ -125,8 +125,9 @@ var chart =
 		this.drawYSeparators();
 		this.labelYAxis();
 		this.labelXAxis();
-		
-		this.drawCurve(data, true, this.width, this.height);
-		this.drawCurve(data, false, this.width, this.height); 
+
+		this.drawCurve(data, "#ABABAB", 4, this.width, this.height);		
+		this.drawCurve(data, "#69B3E7", 5, this.width, this.height);
+		this.drawCurve(data, "#074995", 6, this.width, this.height); 
 	}
 };
